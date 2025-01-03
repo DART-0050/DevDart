@@ -1,5 +1,5 @@
 
-Airline Booking System
+# Airline Booking System
 
 This is an Airline Booking System built with **Flask**, designed to help users search for available flights and book tickets. The project includes a simple web interface with a search functionality, where users can select cities, dates, and view flight details.
 
