@@ -10,13 +10,13 @@ This is an Airline Booking System built with **Flask**, designed to help users s
   
 ## Project Structure
 Airline Booking/ │ 
-├── app.py # Main Flask application file 
-├── static/ # Static files (CSS, JS, images) 
-│ └── images/ # Folder for images 
-├── templates/ # HTML templates 
-│ └── ... # Your HTML files 
-├── requirements.txt # List of Python dependencies 
-└── README.md # Project overview
+├── app.py # Main Flask application file <br/>
+├── static/ # Static files (CSS, JS, images) <br/>
+│ └── images/ # Folder for images <br/>
+├── templates/ # HTML templates <br/> 
+│ └── ... # Your HTML files <br/>
+├── requirements.txt # List of Python dependencies <br/>
+└── README.md # Project overview <br/>
 
 
 ## Steps to Run the Airline Booking Project
