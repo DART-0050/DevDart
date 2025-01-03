@@ -10,7 +10,7 @@ This is an Airline Booking System built with **Flask**, designed to help users s
   
 ## Project Structure
 Airline Booking/ │ 
-├── app.py # Main Flask application file /n
+├── app.py # Main Flask application file 
 ├── static/ # Static files (CSS, JS, images) 
 │ └── images/ # Folder for images 
 ├── templates/ # HTML templates 
@@ -120,4 +120,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Author
 Pathmhajam 
-Git - DART-0050
+(Git : DART-0050)
