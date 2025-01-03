@@ -9,15 +9,15 @@ This is an Airline Booking System built with **Flask**, designed to help users s
 - **User Interface**: The interface includes a user-friendly form to select cities and dates, powered by **Select2** for dropdowns.
   
 ## Project Structure
-Airline Booking/ <br/>
-│ <br/>
-├── app.py # Main Flask application file <br/>
-├── static/ # Static files (CSS, JS, images) <br/>
-│ └── images/ # Folder for images <br/>
-├── templates/ # HTML templates <br/> 
-│ └── ... # Your HTML files <br/>
-├── requirements.txt # List of Python dependencies <br/>
-└── README.md # Project overview <br/>
+Airline Booking/<br/>
+│<br/>
+├── app.py # Main Flask application file<br/>
+├── static/ # Static files (CSS, JS, images)<br/>
+│ └── images/ # Folder for images<br/>
+├── templates/ # HTML templates<br/> 
+│ └── ... # Your HTML files<br/>
+├── requirements.txt # List of Python dependencies<br/>
+└── README.md # Project overview<br/>
 
 
 ## Steps to Run the Airline Booking Project
