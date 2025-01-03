@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Search - SkyDart</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('/static/images/background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: rgb(0, 0, 0);
+        }
+        header {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        header .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        header .logo-container img {
+            height: 50px;
+            margin-right: 10px;
+        }
+        header .logo-container .logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        header nav a {
+            margin: 0 1rem;
+            text-decoration: none;
+            color: white;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+        header nav a:hover {
+            color: #ff5722;
+        }
+        .search-container {
+            padding: 3rem 1rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .search-container h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #ff5722;
+        }
+
+        .search-container label {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            text-align: left;
+            width: 90%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .search-container select,
+        .search-container input {
+            padding: 0.6rem;
+            font-size: 1rem;
+            width: 90%;
+            max-width: 500px;
+            margin: 0.5rem auto;
+            border-radius: 5px;
+            border: 2px solid #ccc;
+            display: block;
+        }
+
+        .search-container input[type="date"] {
+            font-size: 0.9rem;
+            width: 30%;
+        }
+
+        .search-container button {
+            background-color: #ff5722;
+            color: white;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 1.5rem;
+        }
+
+        .search-container button:hover {
+            background-color: #e64a19;
+        }
+
+        /* Flight Cards Styling */
+        .flight-results {
+            padding: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .flight-card {
+            background-color: rgba(0, 0, 0, 0.6); /* Transparent black */
+            color: white;
+            padding: 30px; /* Increased padding */
+            margin: 1rem 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .flight-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start; /* Aligns flight ID slightly right */
+            font-size: 1rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .flight-id {
+            font-size: 2.4rem; /* Larger size */
+            font-weight: bold;
+            color: #f9a825; /* Highlighted */
+            width: 12%; /* Adjusted width for alignment */
+            text-align: center; 
+            margin-right: 10px; /* Extra spacing from the details */
+            margin-bottom: 20px; /* Extra spacing */
+            margin-top: 30px;
+        }
+
+        .flight-details {
+            display: flex;
+            justify-content: space-around;
+            width: 60%;
+            text-align: center;
+            gap: 10px; /* Adjusted spacing */
+        }
+
+        .departure, .arrival {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 30%;
+        }
+
+        .city {
+            font-size: 1.2rem; /* Larger size for city */
+            color: #e3f2fd;
+            margin-bottom: 5px; /* Reduced space */
+        }
+
+        .info {
+            font-size: 0.9rem; /* Smaller size for date and time */
+            color: #bbdefb;
+            margin-bottom: 5px; /* Reduced space */
+        }
+
+        .duration {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: #90caf9;
+            width: 20%;
+        }
+
+        .price-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centered price and button */
+            justify-content: center;
+            width: 15%;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .price {
+            color: #4CAF50;
+            margin-bottom: 10px;
+            font-size: 1.5rem; /* Adjusted size */
+        }
+
+        .details-btn {
+            padding: 10px 20px;
+            background-color: #ff5722;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .details-btn:hover {
+            background-color: #e64a19;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo-container">
+        <img src="/static/images/wlogo.png" alt="Airline Booking Logo">
+        <div class="logo-text">SKYDART</div>
+    </div>
+    <nav>
+        <a href="/welcome">Home</a>
+        <a href="/logout">Logout</a>
+    </nav>
+</header>
+
+<section class="search-container">
+    <h1>Search Flights</h1>
+    <!-- Departure City -->
+    <label for="departure-city">Departure:</label>
+    <select id="departure-city" class="city-dropdown">
+        <!-- Add city options as before -->
+        <option value="HYD">✈️ Hyderabad (HYD) - Rajiv Gandhi International Airport</option>
+        <option value="ATQ">✈️ Amritsar (ATQ) - Sri Guru Ram Dass Jee International Airport</option>
+        <option value="GAU">✈️ Guwahati (GAU) - Lokpriya Gopinath Bordoloi International Airport</option>
+        <option value="BBI">✈️ Bhubaneswar (BBI) - Biju Patnaik International Airport</option>
+        <option value="GAY">✈️ Gaya (GAY) - Gaya Airport</option>
+        <option value="DEL">✈️ New Delhi (DEL) - Indira Gandhi International Airport</option>
+        <option value="IXZ">✈️ Port Blair (IXZ) - Veer Savarkar International Airport</option>
+        <option value="AMD">✈️ Ahmedabad (AMD) - Sardar Vallabhbhai Patel International Airport</option>
+        <option value="BLR">✈️ Bengaluru (BLR) - Kempegowda International Airport</option>
+        <option value="IXE">✈️ Mangalore (IXE) - Mangalore International Airport</option>
+        <option value="COK">✈️ Kochi (COK) - Cochin International Airport</option>
+        <option value="CCJ">✈️ Kozhikode (CCJ) - Calicut International Airport</option>
+        <option value="TRV">✈️ Thiruvananthapuram (TRV) - Trivandrum International Airport</option>
+        <option value="BOM">✈️ Mumbai (BOM) - Chhatrapati Shivaji Maharaj International Airport</option>
+        <option value="NAG">✈️ Nagpur (NAG) - Dr. Babasaheb Ambedkar International Airport</option>
+        <option value="JAI">✈️ Jaipur (JAI) - Jaipur International Airport</option>
+        <option value="MAA">✈️ Chennai (MAA) - Chennai International Airport</option>
+        <option value="TRZ">✈️ Tiruchirappalli (TRZ) - Tiruchirappalli International Airport</option>
+        <option value="LKO">✈️ Lucknow (LKO) - Chaudhary Charan Singh International Airport</option>
+        <option value="VNS">✈️ Varanasi (VNS) - Lal Bahadur Shastri International Airport</option>
+        <option value="CCU">✈️ Kolkata (CCU) - Netaji Subhas Chandra Bose International Airport</option>
+        <option value="CNN">✈️ Kannur (CNN) - Kannur International Airport</option>
+        <option value="STV">✈️ Surat (STV) - Surat Airport</option>
+        <option value="IDR">✈️ Indore (IDR) - Devi Ahilya Bai Holkar Airport</option>
+        <option value="GOI">✈️ Dabolim (GOI) - Dabolim Airport</option>
+        <option value="CJB">✈️ Coimbatore (CJB) - Coimbatore International Airport</option>
+        <option value="SXR">✈️ Srinagar (SXR) - Sheikh ul-Aalam International Airport</option>
+        <option value="IMF">✈️ Imphal (IMF) - Imphal International Airport</option>
+        <option value="IXM">✈️ Madurai (IXM) - Madurai Airport</option>
+        <option value="IXB">✈️ Siliguri (IXB) - Bagdogra International Airport</option>
+        <option value="IXC">✈️ Chandigarh (IXC) - Chandigarh International Airport</option>
+        <option value="ISK">✈️ Nashik (ISK) - Nashik Airport</option>
+        <option value="BDQ">✈️ Vadodara (BDQ) - Vadodara Airport</option>
+        <option value="KBK">✈️ Kushinagar (KBK) - Kushinagar Airport</option>
+        <option value="STV">✈️ Surat (STV) - Surat International Airport</option>
+    </select>
+
+    <!-- Arrival City -->
+    <label for="arrival-city">Arrival:</label>
+    <select id="arrival-city" class="city-dropdown">
+        <!-- Add city options as before -->
+        <option value="HYD">✈️ Hyderabad (HYD) - Rajiv Gandhi International Airport</option>
+        <option value="ATQ">✈️ Amritsar (ATQ) - Sri Guru Ram Dass Jee International Airport</option>
+        <option value="GAU">✈️ Guwahati (GAU) - Lokpriya Gopinath Bordoloi International Airport</option>
+        <option value="BBI">✈️ Bhubaneswar (BBI) - Biju Patnaik International Airport</option>
+        <option value="GAY">✈️ Gaya (GAY) - Gaya Airport</option>
+        <option value="DEL">✈️ New Delhi (DEL) - Indira Gandhi International Airport</option>
+        <option value="IXZ">✈️ Port Blair (IXZ) - Veer Savarkar International Airport</option>
+        <option value="AMD">✈️ Ahmedabad (AMD) - Sardar Vallabhbhai Patel International Airport</option>
+        <option value="BLR">✈️ Bengaluru (BLR) - Kempegowda International Airport</option>
+        <option value="IXE">✈️ Mangalore (IXE) - Mangalore International Airport</option>
+        <option value="COK">✈️ Kochi (COK) - Cochin International Airport</option>
+        <option value="CCJ">✈️ Kozhikode (CCJ) - Calicut International Airport</option>
+        <option value="TRV">✈️ Thiruvananthapuram (TRV) - Trivandrum International Airport</option>
+        <option value="BOM">✈️ Mumbai (BOM) - Chhatrapati Shivaji Maharaj International Airport</option>
+        <option value="NAG">✈️ Nagpur (NAG) - Dr. Babasaheb Ambedkar International Airport</option>
+        <option value="JAI">✈️ Jaipur (JAI) - Jaipur International Airport</option>
+        <option value="MAA">✈️ Chennai (MAA) - Chennai International Airport</option>
+        <option value="TRZ">✈️ Tiruchirappalli (TRZ) - Tiruchirappalli International Airport</option>
+        <option value="LKO">✈️ Lucknow (LKO) - Chaudhary Charan Singh International Airport</option>
+        <option value="VNS">✈️ Varanasi (VNS) - Lal Bahadur Shastri International Airport</option>
+        <option value="CCU">✈️ Kolkata (CCU) - Netaji Subhas Chandra Bose International Airport</option>
+        <option value="CNN">✈️ Kannur (CNN) - Kannur International Airport</option>
+        <option value="STV">✈️ Surat (STV) - Surat Airport</option>
+        <option value="IDR">✈️ Indore (IDR) - Devi Ahilya Bai Holkar Airport</option>
+        <option value="GOI">✈️ Dabolim (GOI) - Dabolim Airport</option>
+        <option value="CJB">✈️ Coimbatore (CJB) - Coimbatore International Airport</option>
+        <option value="SXR">✈️ Srinagar (SXR) - Sheikh ul-Aalam International Airport</option>
+        <option value="IMF">✈️ Imphal (IMF) - Imphal International Airport</option>
+        <option value="IXM">✈️ Madurai (IXM) - Madurai Airport</option>
+        <option value="IXB">✈️ Siliguri (IXB) - Bagdogra International Airport</option>
+        <option value="IXC">✈️ Chandigarh (IXC) - Chandigarh International Airport</option>
+        <option value="ISK">✈️ Nashik (ISK) - Nashik Airport</option>
+        <option value="BDQ">✈️ Vadodara (BDQ) - Vadodara Airport</option>
+        <option value="KBK">✈️ Kushinagar (KBK) - Kushinagar Airport</option>
+        <option value="STV">✈️ Surat (STV) - Surat International Airport</option>
+    </select>
+
+    <!-- Departure Date -->
+    <label for="departure-date">Date:</label>
+    <input type="date" id="departure-date" name="departure-date" required>
+
+    <!-- Search Button -->
+    <button onclick="searchFlights()">Search</button>
+</section>
+
+<section class="flight-cards">
+    <div class="flight-results">
+        <h2>Available Flights</h2>
+        <div id="flight-cards-container"></div>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2024 Airline Booking. All Rights Reserved.</p>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.city-dropdown').select2();
+    });
+
+    function searchFlights() {
+        const departureCity = $('#departure-city').val();
+        const arrivalCity = $('#arrival-city').val();
+        const departureDate = $('#departure-date').val();
+
+        $.ajax({
+            url: '/search_flights',
+            method: 'POST',
+            data: {
+                'departure-city': departureCity,
+                'arrival-city': arrivalCity,
+                'departure-date': departureDate
+            },
+            success: function(flights) {
+                const flightCardsContainer = $('#flight-cards-container');
+                flightCardsContainer.empty();  // Clear previous results
+
+                if (flights.length > 0) {
+                    flights.forEach(function(flight) {
+                        // Format the departure and arrival dates
+                        const departureDateFormatted = new Date(flight.departure_date);
+                        const arrivalDateFormatted = new Date(flight.arrival_date);
+                        const formattedDepartureDate = departureDateFormatted.toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' });
+                        const formattedArrivalDate = arrivalDateFormatted.toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' });
+
+                        // Format the departure and arrival times
+                        const formattedDepartureTime = formatTime(flight.departure_time);  // Assuming it's in seconds
+                        const formattedArrivalTime = formatTime(flight.arrival_time);  // Assuming it's in seconds
+
+                        // Get the duration in hours (HH:MM:SS)
+                        const durationInHours = getDurationInHours(flight.duration);
+
+                        const flightCard = `
+                            <div class="flight-card">
+                                <div class="flight-row">
+                                    <span class="flight-id">${flight.airline_id}</span>
+                                    <div class="flight-details">
+                                        <div class="departure">
+                                            <p class="city">${flight.departure_city}</p>
+                                            <p class="info">Date: ${formattedDepartureDate}</p>  <!-- Dynamic Date -->
+                                            <p class="info">Time: ${formattedDepartureTime}</p>  <!-- Dynamic Time -->
+                                        </div>
+                                        <div class="duration">
+                                            <p>-- ${durationInHours} hours --</p>  <!-- Dynamic Duration -->
+                                        </div>
+                                        <div class="arrival">
+                                            <p class="city">${flight.arrival_city}</p>
+                                            <p class="info">Date: ${formattedArrivalDate}</p>  <!-- Dynamic Date -->
+                                            <p class="info">Time: ${formattedArrivalTime}</p>  <!-- Dynamic Time -->
+                                        </div>
+                                    </div>
+                                    <div class="price-section">
+                                        <p class="price">$${flight.price}</p>
+                                        <button class="details-btn" onclick="window.location.href='/airline_details/${flight.airline_id}'">Details</button>
+
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        flightCardsContainer.append(flightCard);
+                    });
+                } else {
+                    flightCardsContainer.append('<p>No flights found for your search criteria.</p>');
+                }
+            },
+            error: function() {
+                alert('An error occurred while searching for flights. Please try again later.');
+            }
+        });
+    }
+
+    document.querySelectorAll('.details-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const airlineId = this.getAttribute('data-id');
+            window.location.href = `/airline_details/${airlineId}`;  // Redirect to details page
+        });
+    });
+
+    function formatTime(seconds) {
+        const date = new Date(seconds * 1000);  // Convert seconds to milliseconds
+        const hours = date.getUTCHours().toString().padStart(2, '0');
+        const minutes = date.getUTCMinutes().toString().padStart(2, '0');
+        return `${hours}:${minutes}`;
+    }
+
+    function getDurationInHours(seconds) {
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        return `${hours}h ${minutes}m`;
+    }
+</script>   
+
+
+</body>
+</html>

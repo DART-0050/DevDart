@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Details - SkyDart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('/static/images/background.jpg') no-repeat center/cover;
+            color: #333;
+        }
+        header {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        header .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        header .logo-container img {
+            height: 50px;
+            margin-right: 10px;
+        }
+        header .logo-container .logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        header nav a {
+            margin: 0 1rem;
+            text-decoration: none;
+            color: white;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+        header nav a:hover {
+            color: #ff5722;
+        }
+        .content {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: rgba(255, 255, 255, 0.521);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .content h2 {
+            color: #ff5722;
+            text-align: center;
+        }
+        .details {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 0.5rem;
+        }
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+        .detail-row .label {
+            font-weight: bold;
+        }
+        .detail-row .value {
+            color: #555;
+        }
+
+        .book-now-btn {
+            background-color: #ff5722;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .book-now-btn:hover {
+            background-color: #e64a19;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="/static/images/wlogo.png" alt="Airline Booking Logo">
+            <div class="logo-text">SKYDART</div>
+        </div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="/about">About Us</a>
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+
+    <div class="content">
+        <h2>Flight {{ flight.airline_id }}</h2>
+        <div class="details">
+            <div class="detail-row">
+                <div class="label">Airline Name:</div>
+                <div class="value">{{ flight.airline_name }}</div>
+            </div>
+            <div class="detail-row">
+                <div class="label">Departure City:</div>
+                <div class="value">{{ flight.departure_city }}</div>
+            </div>
+            <div class="detail-row">
+                <div class="label">Departure Airport:</div>
+                <div class="value">{{ flight.departure_airport_iata }}</div>
+            </div>
+            <div class="detail-row">
+                <div class="label">Departure Date:</div>
+                <div class="value">{{ flight.departure_date }}</div>
+            </div>
+            <div class="detail-row">
+                <div class="label">Departure Time:</div>
+                <div class="value">{{ flight.departure_time }}</div>
+            </div>
+            <div class="detail-row">
+                <div class="label">Arrival City:</div>
+                <div class="value">{{ flight.arrival_city }}</div>
+            </div>
+            <div class="detail-row">
+                <div class="label">Arrival Airport:</div>
+                <div class="value">{{ flight.arrival_airport_iata }}</div>
+            </div>
+            <div class="detail-row">
+                <div class="label">Arrival Date:</div>
+                <div class="value">{{ flight.arrival_date }}</div>
+            </div>
+            <div class="detail-row">
+                <div class="label">Arrival Time:</div>
+                <div class="value">{{ flight.arrival_time }}</div>
+            </div>
+            <div class="detail-row">
+                <div class="label">Duration:</div>
+                <div class="value">{{ flight.duration }}</div>
+            </div>
+            <div class="detail-row">
+                <div class="label">Price:</div>
+                <div class="value">${{ flight.price }}</div>
+            </div>
+        </div>
+        <div class="book-now-btn-container" style="text-align: center; margin-top: 2rem;">
+            <button onclick="window.location.href='/book/{{ flight.airline_id }}'" class="book-now-btn">BOOK NOW</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 SkyDart. All rights reserved.</p>
+    </footer>
+</body>
+</html>

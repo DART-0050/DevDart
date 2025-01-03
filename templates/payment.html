@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Portal - SkyDart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('/static/images/background.jpg') no-repeat center/cover;
+            color: #333;
+        }
+        header {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        header .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        header .logo-container img {
+            height: 50px;
+            margin-right: 10px;
+        }
+        header .logo-container .logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        header nav a {
+            margin: 0 1rem;
+            text-decoration: none;
+            color: white;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+        header nav a:hover {
+            color: #ff5722;
+        }
+        .content {
+            max-width: 600px;
+            margin: 2rem auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .content h2 {
+            color: #ff5722;
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            padding: 0.8rem;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .form-group input:focus {
+            border-color: #ff5722;
+            box-shadow: 0 0 5px rgba(255, 87, 34, 0.5);
+            outline: none;
+        }
+        .form-group input:valid {
+            border-color: #4CAF50; /* Green border for valid input */
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Green glow effect */
+        }
+
+        .form-group input:invalid {
+            border-color: #f44336; /* Red border for invalid input */
+            box-shadow: 0 0 5px rgba(244, 67, 54, 0.5); /* Red glow effect */
+        }
+        button {
+            background-color: #ff5722;
+            color: white;
+            border: none;
+            padding: 1rem;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #e64a19;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="/static/images/wlogo.png" alt="Airline Booking Logo">
+            <div class="logo-text">SKYDART</div>
+        </div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="/about">About Us</a>
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+
+    <div class="content">
+        <h2>Payment Portal</h2>
+        <form method="POST" action="/payment">
+            <div class="form-group">
+                <label for="card-name">Cardholder Name:</label>
+                <input type="text" id="card-name" name="card_name" required placeholder="Enter cardholder name">
+            </div>
+            <div class="form-group">
+                <label for="card-number">Card Number:</label>
+                <input type="text" id="card-number" name="card_number" pattern="^[0-9]{16}$" required placeholder="Enter 16-digit card number">
+            </div>
+            <div class="form-group">
+                <label for="expiry-date">Expiry Date:</label>
+                <input type="month" id="expiry-date" name="expiry_date" required>
+            </div>
+            <div class="form-group">
+                <label for="cvv">CVV:</label>
+                <input type="text" id="cvv" name="cvv" pattern="^[0-9]{3}$" required placeholder="Enter 3-digit CVV">
+            </div>
+            <div class="form-group">
+                <label for="amount">Amount:</label>
+                <input type="text" id="amount" name="amount" value="{{ 5720 }}" readonly>
+            </div>
+            <button type="submit">Pay Now</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 SkyDart. All rights reserved.</p>
+    </footer>
+</body>
+</html>

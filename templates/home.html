@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyDart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(120deg, #a6c0fe, #f68084);
+            color: #333;
+        }
+        header {
+            background-color: #fff; /* White background */
+            padding: 1rem 2rem;
+            display: flex;
+              justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        header a {
+            text-decoration: none;
+            color: #333;
+            font-size: 1rem;
+        }
+
+        header .auth-buttons a {
+            padding: 0.5rem 1rem;
+            background-color: #ff5722;
+            color: white;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        header .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+        nav a {
+            margin: 0 1rem;
+            text-decoration: none;
+            color: #333;
+        }
+        .hero {
+            text-align: center;
+            padding: 10rem 1rem;
+            background: url('/static/images/background.jpg') no-repeat center/cover;
+            color: white;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.2rem;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.75rem 1.5rem;
+            background-color: #ff5722;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background-color: #e64a19;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        .auth-buttons a {
+            padding: 0.75rem 1.5rem;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .auth-buttons a:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container" style="display: flex; align-items: center;">
+            <img src="/static/images/logo.png" alt="Airline Booking Logo" style="height: 50px; margin-right: 10px;">
+            <div class="logo-text" style="font-size: 1.5rem; font-weight: bold;">SKYDART</div>
+        </div>
+        <nav style="display: flex; gap: 1.5rem;">
+            <a href="#">Home</a>
+            <a href="/about">About Us</a>
+        </nav>
+        <div class="auth-buttons" style="display: flex; gap: 1rem;">
+            <a href="/login">Login</a>
+            <a href="/signup">Sign Up</a>
+        </div>
+    </header>    
+
+    <section class="hero">
+        <h1>Fly Anywhere, Anytime</h1>
+        <p>Book your tickets with ease and enjoy the journey of a lifetime.</p>
+        <a href="#" class="btn" onclick="checkUserStatus()">Book Now</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Airline Booking. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function checkUserStatus() {
+            // Here, you can check if the user is logged in using session or cookie
+            // For this example, I'll assume a simple check. You can replace this logic with actual user status.
+            const isLoggedIn = false; // Change this to true if the user is logged in
+
+            if (isLoggedIn) {
+                // If user is logged in, proceed to booking page
+                window.location.href = "/book_ticket";
+            } else {
+                // Prompt the user to log in or sign up
+                const response = confirm("You need to log in to book a ticket. Do you want to log in or sign up?");
+                if (response) {
+                    window.location.href = "/login"; // Redirect to login page
+                } else {
+                    window.location.href = "/signup"; // Redirect to sign-up page
+                }
+            }
+        }
+    </script>
+</body>
+</html>

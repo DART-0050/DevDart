@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Flight - SkyDart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('/static/images/background.jpg') no-repeat center/cover;
+            color: #333;
+        }
+        header {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        header .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        header .logo-container img {
+            height: 50px;
+            margin-right: 10px;
+        }
+        header .logo-container .logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        header nav a {
+            margin: 0 1rem;
+            text-decoration: none;
+            color: white;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+        header nav a:hover {
+            color: #ff5722;
+        }
+        .content {
+            max-width: 900px;
+            margin: 2rem auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .content h2 {
+            color: #ff5722;
+            text-align: center;
+        }
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            padding: 0.8rem;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .form-group input:focus {
+            border-color: #ff5722;
+            box-shadow: 0 0 5px rgba(255, 87, 34, 0.5);
+            outline: none;
+        }
+        .form-group input.valid {
+            border-color: green;
+        }
+        .form-group input.invalid {
+            border-color: red;
+        }
+        .form-group .error-message {
+            color: red;
+            font-size: 0.8rem;
+            margin-top: 5px;
+            display: none;
+        }
+        .form-group .error-message.active {
+            display: block;
+        }
+        button {
+            grid-column: span 2;
+            background-color: #ff5722;
+            color: white;
+            padding: 1rem;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+        button:hover {
+            background-color: #e64a19;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const inputs = document.querySelectorAll("input");
+            inputs.forEach(input => {
+                input.addEventListener("input", () => {
+                    const pattern = input.getAttribute("pattern");
+                    const errorMessage = input.nextElementSibling;
+
+                    if (pattern && input.value) {
+                        const regex = new RegExp(pattern);
+                        if (regex.test(input.value)) {
+                            input.classList.add("valid");
+                            input.classList.remove("invalid");
+                            errorMessage.classList.remove("active");
+                        } else {
+                            input.classList.add("invalid");
+                            input.classList.remove("valid");
+                            errorMessage.classList.add("active");
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="/static/images/wlogo.png" alt="Airline Booking Logo">
+            <div class="logo-text">SKYDART</div>
+        </div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="/about">About Us</a>
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+
+    <div class="content">
+        <h2>User Details</h2>
+
+        <form method="POST" action="/submit-details">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" pattern="^[a-zA-Z0-9_]{5,15}$" title="Please enter a valid username (5-15 alphanumeric characters, underscores allowed)" required>
+                <span class="error-message">Please enter a valid username (5-15 characters).</span>
+            </div>
+            <div class="form-group">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" name="name" pattern="^[a-zA-Z\s]{2,50}$" title="Please enter a valid name (2-50 characters)" required>
+                <span class="error-message">Please enter a valid name (2-50 characters).</span>
+            </div>
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" min="1" max="120" required>
+                <span class="error-message">Please enter a valid age (1-120).</span>
+            </div>
+            <div class="form-group">
+                <label for="mobile">Mobile Number:</label>
+                <input type="text" id="mobile" name="mobile" pattern="^[0-9]{10}$" title="Please enter a valid 10-digit mobile number" required>
+                <span class="error-message">Please enter a valid 10-digit mobile number.</span>
+            </div>
+            <div class="form-group">
+                <label for="email">Email ID:</label>
+                <input type="email" id="email" name="email" required>
+                <span class="error-message">Please enter a valid email address.</span>
+            </div>
+            <div class="form-group">
+                <label for="aadhar">Aadhar Number:</label>
+                <input type="text" id="aadhar" name="aadhar" pattern="^[0-9]{12}$" title="Please enter a valid 12-digit Aadhar number" required>
+                <span class="error-message">Please enter a valid 12-digit Aadhar number.</span>
+            </div>
+            <div class="form-group">
+                <label for="passport">Passport Number:</label>
+                <input type="text" id="passport" name="passport" pattern="^[A-Z0-9]{6,9}$" title="Please enter a valid passport number (6-9 alphanumeric characters)" required>
+                <span class="error-message">Please enter a valid passport number (6-9 characters).</span>
+            </div>
+            <div class="form-group">
+                <label for="pan">PAN Number:</label>
+                <input type="text" id="pan" name="pan" pattern="^[A-Z]{5}[0-9]{4}[A-Z]$" title="Please enter a valid PAN number (e.g., ABCDE1234F)" required>
+                <span class="error-message">Please enter a valid PAN number (e.g., ABCDE1234F).</span>
+            </div>
+            <button type="submit">Proceed</button>
+        </form>
+    </div>
+</body>
+</html>
