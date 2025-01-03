@@ -1,5 +1,5 @@
 
-### Airline Booking System
+Airline Booking System
 
 This is an Airline Booking System built with **Flask**, designed to help users search for available flights and book tickets. The project includes a simple web interface with a search functionality, where users can select cities, dates, and view flight details.
 
@@ -10,7 +10,7 @@ This is an Airline Booking System built with **Flask**, designed to help users s
   
 ## Project Structure
 Airline Booking/ │ 
-├── app.py # Main Flask application file 
+├── app.py # Main Flask application file /n
 ├── static/ # Static files (CSS, JS, images) 
 │ └── images/ # Folder for images 
 ├── templates/ # HTML templates 
@@ -20,7 +20,7 @@ Airline Booking/ │
 
 
 ## Steps to Run the Airline Booking Project
-# **1. Clone the Repository**
+### **1. Clone the Repository**
 
 - Open a terminal and run the following commands:
   ```bash
@@ -28,7 +28,7 @@ Airline Booking/ │
   cd DevDart
   ```
 
-# **2. Install Python**
+### **2. Install Python**
 
 - Ensure Python 3.x is installed on their system.
 - Verify the installation by running:
@@ -36,7 +36,7 @@ Airline Booking/ │
   python --version
   ```
 
-# **3. Set Up a Virtual Environment (Optional but Recommended)**
+### **3. Set Up a Virtual Environment (Optional but Recommended)**
 
 - Create a virtual environment:
   ```bash
@@ -52,14 +52,14 @@ Airline Booking/ │
     source venv/bin/activate
     ```
 
-# **4. Install Dependencies**
+### **4. Install Dependencies**
 
 - Install the required Python libraries:
   ```bash
   pip install -r requirements.txt
   ```
 
-# **5. Set Up the Database**
+### **5. Set Up the Database**
 
 - Install MySQL if not already installed.
 - Open MySQL and execute the following commands:
@@ -93,7 +93,7 @@ Airline Booking/ │
   )
   ```
 
-# **6. Run the Application**
+### **6. Run the Application**
 
 - Start the Flask development server:
   ```bash
